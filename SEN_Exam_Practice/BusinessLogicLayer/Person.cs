@@ -18,7 +18,7 @@ namespace BusinessLogicLayer
     private string schedule;
     private string gender;
     private DateTime dateOfBirth;
-    private static List<Person> persons;
+    public List<Person> persons = new List<Person>();
     private static DataHandler dh;
 
     public string Identifier { get => identifier; set => identifier = (value ?? string.Empty).Trim(); }
@@ -33,7 +33,7 @@ namespace BusinessLogicLayer
     static Person()
     {
       dh = new DataHandler();
-      persons = new List<Person>();
+      
     }
 
     public Person(int id, string identifier, string title, string name, string surname, string schedule, string gender, DateTime dateOfBirth)
@@ -57,7 +57,7 @@ namespace BusinessLogicLayer
     {
       foreach (DataRow item in dh.GetData(table).Rows)
       {
-        persons.Add(new Person((int)item["id"],
+        persons.Add(new Person((int)item["PersonId"],
             item["identifier"].ToString(),
             item["title"].ToString(),
             item["name"].ToString(),
@@ -100,7 +100,7 @@ namespace BusinessLogicLayer
                 {"schedule", person.Schedule },
                 {"gender", person.Gender },
                 {"dateOfBirth", person.DateOfBirth }
-            }, person.Id.ToString(), "tblPerson");
+            }, "tblPerson", person.Id.ToString());
     }
     public bool Delete()
     {

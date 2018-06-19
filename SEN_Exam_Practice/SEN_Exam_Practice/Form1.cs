@@ -18,7 +18,14 @@ namespace InterfaceLayer
     {
       InitializeComponent();
     }
+    private  void Bind()
+    {
+      idTextBox.DataBindings.Add("Text", data, "Identifier");
+      firstNameTextBox.DataBindings.Add("Text", data, "Name");
+      surnameTextBox.DataBindings.Add("Text", data, "Surname");
+      codeNameTextBox.DataBindings.Add("Text", data, "Title");
 
+    }
     private void clearButton_Click(object sender, EventArgs e)
     {
 
@@ -35,7 +42,11 @@ namespace InterfaceLayer
          "Gender",
          DateTime.Now).Insert();
     }
-
+    public Form1(Person person):this()
+    {
+      data.DataSource = person;
+      Bind();
+    }
     private void searchButton_Click(object sender, EventArgs e)
     {
       new Person().Update((Person)data.DataSource);//update person
